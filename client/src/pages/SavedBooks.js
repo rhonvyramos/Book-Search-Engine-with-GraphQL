@@ -11,18 +11,25 @@ import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
-// importing useQuery 
-import { useQuery } from "@apollo/client";
+// importing useQuery and useMutation
+import { useQuery, useMutation } from "@apollo/client";
 
 // importing GET_ME and REMOVE_BOOK from queries and mutations utils
 import { GET_ME } from "../utils/queries";
 import { REMOVE_BOOK } from "../utils/mutations";
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
+  const { loading, data } = useQuery(GET_ME);
+  const [removeBook] = useMutation(REMOVE_BOOK);
+
+  // if there is no data inside "me," simply initializes an empty array
+  const userData = data?.me || [];
+
+  // below is the original logic that uses useEffect
+  //const [userData, setUserData] = useState({});
 
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
+  //const userDataLength = Object.keys(userData).length;
 
   /*useEffect(() => {
     const getUserData = async () => {
@@ -58,7 +65,9 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await deleteBook(bookId, token);
+
+      // below is the original logic used to work with the useEffect hook
+      /*const response = await deleteBook(bookId, token);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -67,7 +76,7 @@ const SavedBooks = () => {
       const updatedUser = await response.json();
       setUserData(updatedUser);
       // upon success, remove book's id from localStorage
-      removeBookId(bookId);
+      removeBookId(bookId); */
     } catch (err) {
       console.error(err);
     }
