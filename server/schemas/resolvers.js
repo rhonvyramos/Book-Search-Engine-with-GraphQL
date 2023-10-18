@@ -1,4 +1,4 @@
-const { Book, User } = require("../models");
+const { User } = require("../models");
 
 // importing sign token function from auth.js
 const { signToken } = require("../utils/auth.js");
@@ -22,7 +22,7 @@ const resolvers = {
             return { token, user }
         },
 
-        // returns both toekn and user
+        // returns both token and user
         // this is used to create a new client that signs up
         addUser: async(parent, args) => {
             const user = await User.create(args);
