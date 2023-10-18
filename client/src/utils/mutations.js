@@ -46,3 +46,20 @@ export const SAVE_BOOK = gql`
     }
 `;
 
+// mutation to remove book data from user profile
+export const REMOVE_BOOK = gql`
+    mutation removeBook($bookId: ID!) {
+        _id
+        username
+        email
+        bookCount
+        savedBooks {
+            bookId
+            authors
+            title
+            description
+            image
+            link
+        }
+    }
+`;
