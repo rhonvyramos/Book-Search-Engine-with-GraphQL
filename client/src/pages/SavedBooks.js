@@ -66,6 +66,10 @@ const SavedBooks = () => {
 
     try {
 
+      // removes book based on bookId
+      await removeBook( { variables: { bookId } } );
+      removeBookId(bookId);
+
       // below is the original logic used to work with the useEffect hook
       /*const response = await deleteBook(bookId, token);
 
