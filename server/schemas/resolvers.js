@@ -1,5 +1,8 @@
 const { Book, User } = require("../models");
 
+// importing sign token function from auth.js
+const { signToken } = require("../utils/auth.js");
+
 const resolvers = {
     Query: {
         user: async() => {
