@@ -35,7 +35,15 @@ const resolvers = {
         // this is used to update how many books are saved in a client's profile
         saveBook: async(parent, { bookData }, context) => {
             if(context.user) {
-                
+                const updateUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+
+                    // adds bookData to user's saved books
+                    { $addToSet: { savedBooks: bookData } },
+                    { new: true }
+                )
+                .populate("books");
+                return updateUser;
             }
         },
         removeBook: async(parent, { bookId }, context) => {
