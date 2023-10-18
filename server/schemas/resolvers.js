@@ -8,8 +8,14 @@ const resolvers = {
         }
     },
     Mutation: {
-        login: async() => {
 
+        // returns both token and user if they exist in databse
+        login: async() => {
+            const user = await User.findOne({ email });
+            const password = await user.isCorrectPassword(password);
+            const token  = signToken(user);
+
+            return { token, user }
         },
 
         addUser: async() => {
@@ -20,7 +26,7 @@ const resolvers = {
 
         },
         removeBook: async() => {
-            
+
         }
     }
 };
