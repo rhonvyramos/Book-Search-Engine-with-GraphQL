@@ -33,12 +33,13 @@ const resolvers = {
 
         // returns updated user information
         // this is used to update how many books are saved in a client's profile
+        // adds book data into user data
         saveBook: async(parent, { bookData }, context) => {
             if(context.user) {
                 const updateUser = await User.findOneAndUpdate(
                     { _id: context.user._id },
 
-                    // adds bookData to user's saved books
+                    // adds book to user's saved books using book data
                     { $addToSet: { savedBooks: bookData } },
                     { new: true }
                 )
@@ -46,8 +47,22 @@ const resolvers = {
                 return updateUser;
             }
         },
-        removeBook: async(parent, { bookId }, context) => {
 
+        // returns updated user information
+        // this is used to update how many books are saved in a client's profile
+        // removes book data into user data
+        removeBook: async(parent, { bookId }, context) => {
+            if(context.user) {
+                const updateUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+
+                    // removes book from user's saved books using book's id
+                    { $pull: { savedBooks: bookId } },
+                    { new: true }
+                )
+                .populate("books");
+                return updateUser;
+            }
         }
     }
 };
