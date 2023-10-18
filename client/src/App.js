@@ -9,6 +9,9 @@ import { ApolloProvider } from "@apollo/client";
 
 
 function App() {
+
+  // encapsulates original Router html inside ApolloProvider html
+  // this ensures requests work with apollo server
   return (
     <ApolloProvider>
       <Router>
