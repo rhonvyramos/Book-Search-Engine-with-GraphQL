@@ -25,9 +25,14 @@ const resolvers = {
         // returns both toekn and user
         // this is used to create a new client that signs up
         addUser: async() => {
-            
+            const user = await User.create(args);
+            const token = signToken(user);
+
+            return { token, user };
         },
 
+        // returns updated user information
+        // this is used to update how many books are saved in a client's profile
         saveBook: async() => {
 
         },
