@@ -5,6 +5,7 @@ import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
 // importing ApolloProvider
+import { ApolloProvider } from "@apollo/client";
 
 
 function App() {
