@@ -14,7 +14,7 @@ const resolvers = {
 
         // returns both token and user if they exist in database
         // this is used to login the client to the app
-        login: async() => {
+        login: async(parent, { email, password }) => {
             const user = await User.findOne({ email });
             const password = await user.isCorrectPassword(password);
             const token  = signToken(user);
@@ -24,7 +24,7 @@ const resolvers = {
 
         // returns both toekn and user
         // this is used to create a new client that signs up
-        addUser: async() => {
+        addUser: async(parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
 
@@ -33,10 +33,12 @@ const resolvers = {
 
         // returns updated user information
         // this is used to update how many books are saved in a client's profile
-        saveBook: async() => {
-
+        saveBook: async(parent, { bookData }, context) => {
+            if(context.user) {
+                
+            }
         },
-        removeBook: async() => {
+        removeBook: async(parent, { bookId }, context) => {
 
         }
     }
